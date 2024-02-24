@@ -1,7 +1,9 @@
 from src.oaic.chat import chat_response
-from src.oaic.image import generate_image
+from src.oaic.image import image_response
 from uuid import uuid4
 import PIL.Image as Image
+import io
+
 
 system = """
 You are a successful, bestselling hard fantasy and scifi author.  
@@ -24,19 +26,21 @@ image_prompt = """
 oil painting in the style of Disney's Haunted Mansion
 fire mage from World of Warcraft
 style is a mix of high fantasy and Victorian steampunk
-She looks like Jessica Chastain and Gillian Anderson. 
+She resembles Jessica Chastain and Gillian Anderson. 
 Mid 40s, Dark red hair, green eyes, pale skin. Her hair is worn high in an up-do.  
 She is dressed as a noblewoman in a green robe with gold trim.
 Her arms are crossed and she is smiling very slightly.  
 She is standing in front of a fireplace with a fire burning.
 """
 
-imagepath = "~Images/"
+imagepath = "~/Images/"
 filename = f"{uuid4()}.png"
 
 # print(chat_response(system, user))
 
 # Create PIL image from generate_image
-image = Image.open(generate_image(image_prompt))
-image.save(imagepath + filename)
+image_bytes = image_response(image_prompt)
+image = Image.open(io.BytesIO(image_bytes))
 image.show()
+print(imagepath + filename)
+image.save(imagepath + filename)
