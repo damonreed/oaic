@@ -1,0 +1,4 @@
+openai
+google-auth
+google-cloud-secret-manager
+pillow
